@@ -5,10 +5,14 @@
  */
 
  import React, { Component } from 'react';
- import { StyleSheet, Text, View } from 'react-native';
+ import { StyleSheet, Text, View, Button } from 'react-native';
 
- export default class FirstProject extends Component {
+ export default class NativeCourses extends Component {
+ 	static navigationOptions = {
+ 		title: 'React Native Courses',
+ 	}
  	render() {
+ 		const { navigate } = this.props.navigation;
  		return (
  			<View style={styles.container}>
  			<Text style={styles.welcome}>
@@ -21,6 +25,12 @@
  			Double tap R on your keyboard to reload,{'\n'}
  			Shake or press menu button for dev menu
  			</Text>
+ 				<Button
+					onPress={() => navigate('ReactCourses')}
+					title= 'React Courses'
+ 				>
+
+ 				</Button>
  			</View>
  			);
  	}
