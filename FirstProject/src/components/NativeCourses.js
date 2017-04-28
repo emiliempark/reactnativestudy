@@ -5,7 +5,12 @@
  */
 
  import React, { Component } from 'react';
- import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, ListView, View, Button, Image } from 'react-native';
+import data from '../data/courses.json';
+const ds = new ListView.DataSource({ //DataSource  - generates a List view with Data source 
+	rowHasChanged : (r1, r2) => r1 !== r2 // take r1 and r2 and if they are not the same, that means the data source has changed. 
+});
+const dataSource = ds.cloneWithRows(data); // whatever the data has changed run this.
 
  export default class NativeCourses extends Component {
  	static navigationOptions = {
@@ -15,22 +20,29 @@
  		const { navigate } = this.props.navigation;
  		return (
  			<View style={styles.container}>
- 			<Text style={styles.welcome}>
- 			Welcome to React Native!
- 			</Text>
- 			<Text style={styles.instructions}>
- 			To get started, edit index.android.js
- 			</Text>
- 			<Text style={styles.instructions}>
- 			Double tap R on your keyboard to reload,{'\n'}
- 			Shake or press menu button for dev menu
- 			</Text>
  				<Button
 					onPress={() => navigate('ReactCourses')}
 					title= 'React Courses'
  				>
-
  				</Button>
+ 				<ListView 
+					dataSource={dataSource}
+					renderRow={(rowData) => 
+						<View>
+							<Text>{rowData.title}</Text>
+							<Text>{rowData.description}</Text>
+							<Text>{rowData.views}</Text>
+							<Button 
+								onPress="/"
+								title="Link to course"
+							/>
+							<Text>{rowData.link}</Text>
+							<Image source={{url: rowData.image}}
+								style={{width: 375, height: 200}}
+							/>
+						</View>
+					}
+ 				/>
  			</View>
  			);
  	}
